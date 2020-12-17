@@ -1,0 +1,40 @@
+---
+- hosts: tower01
+  gather_facts: false
+  connection: local
+
+  environment:
+    TOWER_USERNAME: admin
+    TOWER_PASSWORD: "{{ tower_password }}"
+    TOWER_HOST: https://{{ ansible_host }}
+
+  tasks:
+    # ジョブテンプレートの作成
+    - name: create job template (Network-Banner)
+      awx.awx.tower_job_template:
+        name: Network-Banner
+        job_type: run
+        inventory: Workshop Inventory
+        project: Workshop Project
+        playbook: network_banner.yml
+        credentials:
+          - Workshop Credential
+        survey_enabled: true
+        survey_spec:
+          name: banner suvery
+          description: banner suvery
+          spec:
+            - question_name: Please enter the banner text
+              question_description: Please type into the text field the desired banner
+              type: textarea
+              variable: net_banner
+              required: true
+            - question_name: Please enter the banner type
+              question_description: Please choose an option
+              type: multiplechoice
+              variable: net_type
+              choices: |-
+                login
+                motd
+              default: login
+              required: true

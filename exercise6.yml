@@ -1,0 +1,27 @@
+---
+- hosts: tower01
+  gather_facts: false
+  connection: local
+
+  environment:
+    TOWER_USERNAME: admin
+    TOWER_PASSWORD: "{{ tower_password }}"
+    TOWER_HOST: https://{{ ansible_host }}
+
+  tasks:
+    # ジョブテンプレートの作成
+    - name: create job template
+      awx.awx.tower_job_template:
+        name: Backup network configurations
+        job_type: run
+        inventory: Workshop Inventory
+        project: Workshop Project
+        playbook: network_backup.yml
+        credentials:
+          - Workshop Credential
+          - Tower Credential
+
+    # ジョブテンプレートの実行
+    - name: Launch a job template
+      awx.awx.tower_job_launch:
+        job_template: Backup network configurations

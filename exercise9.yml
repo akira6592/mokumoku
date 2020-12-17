@@ -1,0 +1,53 @@
+---
+- hosts: tower01
+  gather_facts: false
+  connection: local
+
+  environment:
+    TOWER_USERNAME: admin
+    TOWER_PASSWORD: "{{ tower_password }}"
+    TOWER_HOST: https://{{ ansible_host }}
+
+  tasks:
+    # ワークフロージョブテンプレートの作成
+    - name: create workflow job template
+      awx.awx.tower_workflow_job_template:
+        name: Workshop Workflow
+        inventory: Workshop Inventory
+        organization: Default
+
+    # ワークフロージョブテンプレートノードの作成
+    - name: node301
+      awx.awx.tower_workflow_job_template_node:
+        identifier: node301
+        workflow: Workshop Workflow
+        unified_job_template: Network-Restore
+        organization: Default
+
+    - name: node201
+      awx.awx.tower_workflow_job_template_node:
+        identifier: node201
+        workflow: Workshop Workflow
+        unified_job_template: Network-Banner
+        organization: Default
+        failure_nodes:
+          - node301
+    
+    - name: node202
+      awx.awx.tower_workflow_job_template_node:
+        identifier: node202
+        workflow: Workshop Workflow
+        unified_job_template: Network-User
+        organization: Default
+        failure_nodes:
+          - node301
+
+    - name: node101
+      awx.awx.tower_workflow_job_template_node:
+        identifier: node101
+        workflow: Workshop Workflow
+        unified_job_template: Backup network configurations
+        organization: Default
+        success_nodes:
+          - node201
+          - node202
