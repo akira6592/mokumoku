@@ -1,14 +1,18 @@
 # mokumoku-network
 
-[Ansible ユーザー会](https://ansible-users.connpass.com/)主催で開催されている、[Ansible もくもく会 ネットワーク編](https://github.com/ansible/workshops/blob/devel/exercises/ansible_network/README.ja.md)の、Ansible Tower に対する操作を Ansible で自動化するための Playbook です。
+[Ansible ユーザー会](https://ansible-users.connpass.com/)主催で開催されている、[Ansible もくもく会 ネットワーク編](https://aap2.demoredhat.com/exercises/ansible_network/)の、Automation Controller  に対する操作を Ansible で自動化するための Playbook です。2021年12月開催分からの新コンテンツ（AAP2.0）の Exercise 6、7、9 に対応しています。
 
-本編では Ansible Tower に対する操作の Playbook を作成しませんので、こちらはおまけ的な位置付けです。
+もくもく会コンテンツ本編では Automation Controller に対する操作の Playbook を作成しませんので、こちらはおまけ的な位置付けです。
 
-Ansible Tower 自体に不慣れな場合は、まずは手動で操作されることをおすすめします。
+Automation Controller 自体に不慣れな場合は、まずは手動で操作されることをおすすめします。
 
 そのうえで「あの操作はこうやって Playbook 化できるのか」と参考程度にご覧いただければと思います。
 
 # 実行方法
+
+## コレクションのインストール
+
+`ansible.controller` コレクションをあらかじめインストールする。
 ## 環境設定
 `inventory.ini` の以下の変数の値を、当日のご自身の環境の値に変更する。
 

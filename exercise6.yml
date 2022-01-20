@@ -11,17 +11,18 @@
   tasks:
     # ジョブテンプレートの作成
     - name: create job template
-      awx.awx.tower_job_template:
+      ansible.controller.job_template:
         name: Backup network configurations
         job_type: run
         inventory: Workshop Inventory
         project: Workshop Project
-        playbook: network_backup.yml
+        playbook: playbooks/network_backup.yml
+        execution_environment: Default execution environment
         credentials:
           - Workshop Credential
-          - Tower Credential
+          - Controller Credential
 
     # ジョブテンプレートの実行
     - name: Launch a job template
-      awx.awx.tower_job_launch:
+      ansible.controller.job_launch:
         job_template: Backup network configurations

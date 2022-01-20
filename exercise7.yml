@@ -11,12 +11,13 @@
   tasks:
     # ジョブテンプレートの作成
     - name: create job template (Network-Banner)
-      awx.awx.tower_job_template:
+      ansible.controller.job_template:
         name: Network-Banner
         job_type: run
         inventory: Workshop Inventory
         project: Workshop Project
-        playbook: network_banner.yml
+        execution_environment: Default execution environment
+        playbook: playbooks/network_banner.yml
         credentials:
           - Workshop Credential
         survey_enabled: true
