@@ -13,6 +13,8 @@ Automation Controller 自体に不慣れな場合は、まずは手動で操作�
 ## コレクションのインストール
 
 `ansible.controller` コレクションをあらかじめインストールする。
+
+Ansible Galaxy ではなく Automation Hub への接続が必要です（[接続設定](https://tekunabe.hatenablog.jp/entry/2020/12/27/ansible_galaxy_automation_hub)）。
 ## 環境設定
 `inventory.ini` の以下の変数の値を、当日のご自身の環境の値に変更する。
 
