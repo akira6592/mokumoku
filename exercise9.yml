@@ -48,3 +48,8 @@
         success_nodes:
           - node201
           - node202
+
+    # （参考） ジョブテンプレートの実行
+    # - name: Launch a workflow job template
+    #   ansible.controller.workflow_launch:
+    #     workflow_template: Workshop Workflow

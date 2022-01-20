@@ -39,3 +39,14 @@
                 motd
               default: login
               required: true
+
+    # （参考） ジョブテンプレートの実行
+    # - name: Launch a job template
+    #   ansible.controller.job_launch:
+    #     job_template: Network-Banner
+    #     extra_vars:
+    #       net_type: login
+    #       net_banner: |
+    #         !!!!!!!!
+    #         WELCOME
+    #         !!!!!!!!
