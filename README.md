@@ -1,6 +1,13 @@
-# mokumoku-network
+# mokumoku
 
-[Ansible ユーザー会](https://ansible-users.connpass.com/)主催で開催されている、[Ansible もくもく会 ネットワーク編](https://aap2.demoredhat.com/exercises/ansible_network/)の、Automation Controller  に対する操作を Ansible で自動化するための Playbook です。2021年12月開催分からの新コンテンツ（AAP2.0）の Exercise 6、7、9 に対応しています。
+[Ansible ユーザー会](https://ansible-users.connpass.com/)主催で開催されている、Ansible もくもく会の、Automation Controller に対する操作を Ansible で自動化するための Playbook です。
+
+新コンテンツ（AAP2.1）の以下コンテンツに対応しています。
+
+| 内容  | ディレクトリ |
+|--|--|
+|ネットワーク編 Exercise 6、7、9 | [network](./network/) |
+| サーバー編 Exercise 2-3、2-4、2-6 | [server](./server/) |
 
 もくもく会コンテンツ本編では Automation Controller に対する操作の Playbook を作成しませんので、こちらはおまけ的な位置付けです。
 
