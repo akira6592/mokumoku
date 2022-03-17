@@ -22,8 +22,8 @@
           - Workshop Credential
         survey_enabled: true
         survey_spec:
-          name: banner suvery
-          description: banner suvery
+          name: banner survey
+          description: banner survey
           spec:
             - question_name: Please enter the banner text
               question_description: Please type into the text field the desired banner
@@ -44,6 +44,7 @@
     # - name: Launch a job template
     #   ansible.controller.job_launch:
     #     job_template: Network-Banner
+    #     wait: true
     #     extra_vars:
     #       net_type: login
     #       net_banner: |
