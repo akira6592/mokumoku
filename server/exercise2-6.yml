@@ -1,0 +1,85 @@
+---
+- hosts: tower01
+  gather_facts: false
+  connection: local
+
+  environment:
+    CONTROLLER_USERNAME: admin
+    CONTROLLER_PASSWORD: "{{ tower_password }}"
+    CONTROLLER_HOST: https://{{ ansible_host }}
+
+  tasks:
+    # プロジェクトの作成
+    - name: create project
+      ansible.controller.project:
+        name: "{{ item.name }}"
+        organization: Default
+        scm_type: git
+        scm_url: https://github.com/ansible/workshop-examples.git
+        scm_branch: "{{ item.branch }}"
+        scm_clean: true
+        scm_delete_on_update: true
+        scm_update_on_launch: true
+        state: present
+      loop:
+        - name: Webops Git Repo
+          branch: webops
+        - name: Webdev Git Repo
+          branch: webdev
+
+    # ジョブテンプレートの作成
+    - name: create job template Web App Deploy
+      ansible.controller.job_template:
+        name: Web App Deploy
+        job_type: run
+        inventory: Workshop Inventory
+        project: Webops Git Repo
+        playbook: rhel/webops/web_infrastructure.yml
+        execution_environment: Default execution environment
+        credentials:
+          - Workshop Credential
+        limit: web
+        become_enabled: true
+
+    # ジョブテンプレートの作成
+    - name: create job template Node.js Deploy
+      ansible.controller.job_template: 
+        name: Node.js Deploy
+        job_type: run
+        inventory: Workshop Inventory
+        project: Webdev Git Repo
+        playbook: rhel/webdev/install_node_app.yml
+        execution_environment: Default execution environment
+        credentials:
+          - Workshop Credential
+        limit: web
+        become_enabled: true
+
+    # ワークフロージョブテンプレートの作成
+    - name: create workflow job template
+      ansible.controller.workflow_job_template:
+        name: Deploy Webapp Server
+        # inventory: Workshop Inventory
+        organization: Default
+
+    # ワークフロージョブテンプレートノードの作成
+    # 未定義エラーを防ぐために、最後のノードから順に作成する
+    - name: node201
+      ansible.controller.workflow_job_template_node:
+        identifier: node201   # TODO: ノードのラベルになってしまう
+        workflow: Deploy Webapp Server
+        unified_job_template: Node.js Deploy
+    
+    - name: node101
+      ansible.controller.workflow_job_template_node:
+        identifier: node101   # TODO: ノードのラベルになってしまう
+        workflow: Deploy Webapp Server
+        unified_job_template: Web App Deploy
+        success_nodes:
+          - node201
+
+    # （参考） ジョブテンプレートの実行
+    - name: Launch a workflow job template
+      ansible.controller.workflow_launch:
+        workflow_template: Deploy Webapp Server
+        wait: true
