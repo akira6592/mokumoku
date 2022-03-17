@@ -1,0 +1,53 @@
+---
+- hosts: tower01
+  gather_facts: false
+  connection: local
+
+  environment:
+    CONTROLLER_USERNAME: admin
+    CONTROLLER_PASSWORD: "{{ tower_password }}"
+    CONTROLLER_HOST: https://{{ ansible_host }}
+
+  tasks:
+    # ジョブテンプレートの作成
+    - name: create job template (Network-Banner)
+      ansible.controller.job_template:
+        name: Network-Banner
+        job_type: run
+        inventory: Workshop Inventory
+        project: Workshop Project
+        execution_environment: Default execution environment
+        playbook: playbooks/network_banner.yml
+        credentials:
+          - Workshop Credential
+        survey_enabled: true
+        survey_spec:
+          name: banner survey
+          description: banner survey
+          spec:
+            - question_name: Please enter the banner text
+              question_description: Please type into the text field the desired banner
+              type: textarea
+              variable: net_banner
+              required: true
+            - question_name: Please enter the banner type
+              question_description: Please choose an option
+              type: multiplechoice
+              variable: net_type
+              choices: |-
+                login
+                motd
+              default: login
+              required: true
+
+    # （参考） ジョブテンプレートの実行
+    # - name: Launch a job template
+    #   ansible.controller.job_launch:
+    #     job_template: Network-Banner
+    #     wait: true
+    #     extra_vars:
+    #       net_type: login
+    #       net_banner: |
+    #         !!!!!!!!
+    #         WELCOME
+    #         !!!!!!!!
