@@ -26,9 +26,9 @@ Ansible Galaxy ではなく Automation Hub への接続が必要です（[接続
 `inventory.ini` の以下の変数の値を、当日のご自身の環境の値に変更する。
 
 ```ini
-[tower:vars]
-ansible_host=当日のご自身の環境のAnsibleTowerのホスト名
-tower_password=当日のご自身の環境のパスワード
+[controller:vars]
+ansible_host=当日のご自身の環境のAnsiblecontrollerのホスト名
+controller_password=当日のご自身の環境のパスワード
 ```
 
 ## Playbook 実行
