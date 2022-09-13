@@ -3,10 +3,11 @@
   gather_facts: false
   connection: local
 
-  environment:
-    CONTROLLER_USERNAME: admin
-    CONTROLLER_PASSWORD: "{{ tower_password }}"
-    CONTROLLER_HOST: https://{{ ansible_host }}
+  module_defaults:
+    group/ansible.controller.controller:
+      controller_host: "https://{{ ansible_host }}"
+      controller_username: "{{ controller_username }}"
+      controller_password: "{{ controller_password }}"
 
   tasks:
     # プロジェクトの作成
