@@ -19,6 +19,7 @@
 
     # ワークフロージョブテンプレートノードの作成
     # 未定義エラーを防ぐために、最後のノードから順に作成する
+    # TODO: このジョブテンプレートがない
     - name: node301
       ansible.controller.workflow_job_template_node:
         identifier: node301
