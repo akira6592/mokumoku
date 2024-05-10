@@ -5,7 +5,7 @@
 
   module_defaults:
     group/ansible.controller.controller:
-      controller_host: "https://{{ ansible_host }}"
+      controller_host: https://{{ ansible_host }}
       controller_username: "{{ controller_username }}"
       controller_password: "{{ controller_password }}"
 
@@ -33,7 +33,7 @@
         unified_job_template: Network-Banner
         failure_nodes:
           - node301
-    
+
     - name: node202
       ansible.controller.workflow_job_template_node:
         identifier: node202
