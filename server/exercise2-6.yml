@@ -5,7 +5,7 @@
 
   module_defaults:
     group/ansible.controller.controller:
-      controller_host: "https://{{ ansible_host }}"
+      controller_host: https://{{ ansible_host }}
       controller_username: "{{ controller_username }}"
       controller_password: "{{ controller_password }}"
 
@@ -44,7 +44,7 @@
 
     # ジョブテンプレートの作成
     - name: create job template Node.js Deploy
-      ansible.controller.job_template: 
+      ansible.controller.job_template:
         name: Node.js Deploy
         job_type: run
         inventory: Workshop Inventory
@@ -67,13 +67,13 @@
     # 未定義エラーを防ぐために、最後のノードから順に作成する
     - name: node201
       ansible.controller.workflow_job_template_node:
-        identifier: node201   # TODO: ノードのラベルになってしまう
+        identifier: node201 # TODO: ノードのラベルになってしまう
         workflow: Deploy Webapp Server
         unified_job_template: Node.js Deploy
-    
+
     - name: node101
       ansible.controller.workflow_job_template_node:
-        identifier: node101   # TODO: ノードのラベルになってしまう
+        identifier: node101 # TODO: ノードのラベルになってしまう
         workflow: Deploy Webapp Server
         unified_job_template: Web App Deploy
         success_nodes:

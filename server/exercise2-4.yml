@@ -5,12 +5,11 @@
 
   module_defaults:
     group/ansible.controller.controller:
-      controller_host: "https://{{ ansible_host }}"
+      controller_host: https://{{ ansible_host }}
       controller_username: "{{ controller_username }}"
       controller_password: "{{ controller_password }}"
 
   tasks:
-
     # ジョブテンプレートの作成
     - name: create job template
       ansible.controller.job_template:
