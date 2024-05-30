@@ -12,7 +12,7 @@
   tasks:
     # ジョブテンプレートの作成
     - name: create job template (Network-Banner)
-      ansible.controller.job_template:
+      awx.awx.job_template:
         name: Network-Banner
         job_type: run
         inventory: Workshop Inventory
@@ -35,20 +35,6 @@
               question_description: Please choose an option
               type: multiplechoice
               variable: net_type
-              choices: |-
-                login
-                motd
+              choices: "login\nmotd"
               default: login
               required: true
-
-    # （参考） ジョブテンプレートの実行
-    # - name: Launch a job template
-    #   ansible.controller.job_launch:
-    #     job_template: Network-Banner
-    #     wait: true
-    #     extra_vars:
-    #       net_type: login
-    #       net_banner: |
-    #         !!!!!!!!
-    #         WELCOME
-    #         !!!!!!!!

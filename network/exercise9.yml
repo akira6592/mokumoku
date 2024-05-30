@@ -12,7 +12,7 @@
   tasks:
     # ワークフロージョブテンプレートの作成
     - name: create workflow job template
-      ansible.controller.workflow_job_template:
+      awx.awx.workflow_job_template:
         name: Workshop Workflow
         inventory: Workshop Inventory
         organization: Default
@@ -20,14 +20,15 @@
     # ワークフロージョブテンプレートノードの作成
     # 未定義エラーを防ぐために、最後のノードから順に作成する
     # TODO: このジョブテンプレートがない
+
     - name: node301
-      ansible.controller.workflow_job_template_node:
+      awx.awx.workflow_job_template_node:
         identifier: node301
         workflow: Workshop Workflow
         unified_job_template: Network Automation - Restore
 
     - name: node201
-      ansible.controller.workflow_job_template_node:
+      awx.awx.workflow_job_template_node:
         identifier: node201
         workflow: Workshop Workflow
         unified_job_template: Network-Banner
@@ -35,7 +36,7 @@
           - node301
 
     - name: node202
-      ansible.controller.workflow_job_template_node:
+      awx.awx.workflow_job_template_node:
         identifier: node202
         workflow: Workshop Workflow
         unified_job_template: Network-User
@@ -43,16 +44,10 @@
           - node301
 
     - name: node101
-      ansible.controller.workflow_job_template_node:
+      awx.awx.workflow_job_template_node:
         identifier: node101
         workflow: Workshop Workflow
         unified_job_template: Backup network configurations
         success_nodes:
           - node201
           - node202
-
-    # （参考） ジョブテンプレートの実行
-    # - name: Launch a workflow job template
-    #   ansible.controller.workflow_launch:
-    #     workflow_template: Workshop Workflow
-    #     wait: true

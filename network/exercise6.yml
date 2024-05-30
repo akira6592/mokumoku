@@ -12,7 +12,7 @@
   tasks:
     # ジョブテンプレートの作成
     - name: create job template
-      ansible.controller.job_template:
+      awx.awx.job_template:
         name: Backup network configurations
         job_type: run
         inventory: Workshop Inventory
@@ -22,8 +22,3 @@
         credentials:
           - Workshop Credential
           - Controller Credential
-
-    # （参考） ジョブテンプレートの実行
-    # - name: Launch a job template
-    #   ansible.controller.job_launch:
-    #     job_template: Backup network configurations
